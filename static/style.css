@@ -1,0 +1,496 @@
+.login-page{
+    display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", ui-system, sans-serif;
+
+}
+.login-header{
+    color: #ffffff;
+    width: 100%;
+    max-width: 320px;
+    background: linear-gradient(45deg,cornflowerblue,#205622);
+    padding: 10px 20px 10px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+}
+.card-body {
+    width: 90%;
+    max-width: 320px;
+    background: #ffffff;
+    position: relative;
+    padding: 10px 20px 80px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+
+.button {
+    width: 100%;
+    height: 100%;
+    padding: 10px 10px;
+    color: #ffffff;
+    display: block;
+    margin-top: 20px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    max-height: 60px;
+    border: 0 solid rgba(0,0,0,0.1);
+    border-radius: 0 0 3px 3px;
+    border-bottom-width: 7px;
+    background-color: cornflowerblue;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Add a transition for a smooth effect */
+
+}
+.button:hover{
+       background-color: #205622; /* Change the background color on hover */
+    color: #ffffff; /* Change text color on hover */
+}
+.login{
+    flex-direction: column;
+}
+/* Style the labels for form fields */
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Style the form fields */
+.login input[type="text"],
+.login input[type="password"],
+.login input[type="number"],
+.login input[type="email"]
+{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", ui-system, sans-serif;
+}
+
+/* Style the Register button */
+.login input[type="submit"],
+.login input[type="button"],
+#next-button,
+#reg-button,
+#edit-profile-button,
+#save-profile-button,
+.password-reset{
+    width: 100%;
+    padding: 10px;
+    background-color: cornflowerblue;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.login input[type="submit"]:hover,
+#edit-profile-button:hover,
+#save-profile-button:hover,
+#reg-button:hover,
+#next-button:hover,
+#password-reset:hover{
+    background-color: #0c93d0; /* Change the background color on hover */
+}
+
+
+/* Style the error message */
+.message-alert {
+    color: red;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+
+/* Style the message alert div */
+.message-alert {
+    background-color: #ff6b6b;
+    color: white;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 3px;
+}
+
+/* Style the link to the login page */
+p {
+    text-align: center;
+}
+
+p a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+p a:hover {
+    text-decoration: underline;
+    color: #006b1b;
+}
+.header {
+  background-color: #165975; /* Set your desired background color */
+  color: #fff; /* Set your desired text color */
+  padding: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    font-family: -apple-system, fantasy;
+
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-title {
+  margin: 0;
+    cursor: pointer
+;
+}
+
+.navbar-links {
+  display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", ui-system, sans-serif;
+
+}
+
+.nav-link-left {
+  text-decoration: none;
+  color: #fff;
+    background: linear-gradient(to bottom, #ffd405 0, #b47802 100%);
+    border: 2px solid #01405b;;
+    border-radius: 10px;
+    padding: 10px;
+}
+.nav-link-right {
+  text-decoration: none;
+  color: #fff;
+
+    background: linear-gradient(to bottom, #ffd405 0, #b47802 100%);
+    border: 2px solid #01405b;;
+    border-radius: 10px;
+    padding: 10px;
+
+}
+.nav-link-right:hover {
+  background-color: #cc0303; /* Change the background color on hover */
+  color: #fff; /* Change text color on hover */
+}
+.navbar-img-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Vertically align items */
+    justify-content: space-between; /* Create space between items */
+}
+
+.navbar-img {
+    max-width: 50px; /* Adjust the maximum width as needed */
+    max-height: 50px; /* Adjust the maximum height as needed */
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    gap: 1rem;
+    margin-top: 20px; /* Add margin-top to create a gap */
+
+}
+.input {
+  border-radius: 20px;
+  width: 300px; /* Set a width for the input field */
+  padding: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", ui-system, sans-serif;
+}
+
+/* Food details */
+.food-and-chart{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.food-details {
+    margin-top: 20px;
+    background: #fff;
+    padding: 1rem; /* Adjust the padding to your preference */
+    max-width: 350px;
+    min-width: 200px;
+    width: 300px;
+}
+
+.food-detail {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    font-family: Arial, sans-serif;
+    border: 1px solid black;
+    word-break: break-all;
+
+
+
+}
+
+.detail-key,
+.detail-value {
+    font-weight: bold;
+    text-align: center; /* Center text horizontally */
+    padding: 0.3em; /* Adjust the padding to your preference */
+
+}
+
+/* User Account Styles */
+.user-account {
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    position: relative; /* Needed for positioning the options menu */
+
+}
+
+.user-account img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer; /* Add a pointer cursor to indicate clickability */
+}
+
+/* Options menu styles */
+.user-account-options {
+    position: absolute;
+    top: 100%; /* Position below the avatar */
+    right: 0; /* Align to the right */
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    display: none; /* Initially hidden */
+    white-space: nowrap;
+    text-decoration: none;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", ui-system, sans-serif;
+}
+.user-account-options a
+{
+    text-decoration: none;
+    color: #006b1b;
+}
+.user-account-options a:hover{
+    text-decoration: underline;
+    color: #006b1b;
+}
+.header-bar-additional a{
+    text-decoration: none;
+    color: white;
+    font-size: larger;
+}
+.header-bar-additional a:hover{
+    text-decoration: underline;
+}
+.meal-form {
+    position: relative;
+    z-index: 999;
+}
+
+
+#myChart{
+    scale: 1.5;
+
+}
+
+
+.lunch-canvas,
+.breakfast-canvas,
+.dinner-canvas{
+    display: flex;
+    flex-direction: column;
+}
+.main-body{
+    display:flex;
+    flex-direction: row;
+    gap: 5rem;
+}
+.food-list-header{
+    display: flex;
+justify-content: space-between;
+color: #fff;
+border-radius: 10px 10px 0 0;
+background: linear-gradient(45deg,cornflowerblue,#205622);
+}
+
+.food-list-body {
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid #B0C4DE;
+            padding: 20px;
+            max-height: 200px;
+    gap: 0.5rem;
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+    overflow: auto;
+        }
+.btn{
+    display:flex;
+    justify-content: center;
+}
+.reveal-meals,
+.search-btn,
+.add-to-meal{
+  background-color: #c2fbd7;
+  border-radius: 100px;
+  box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+  color: green;
+  cursor: pointer;
+  display: inline-block;
+  font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.reveal-meals:hover,
+.search-btn:hover{
+  box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
+}
+
+.message{
+    display: flex;
+    justify-content: center;
+    margin-top:10px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", ui-system, sans-serif;
+    color: green;
+    font-size: large;
+
+        }
+body{
+font-family: 'Inconsolata', monospace;
+}
+.body{
+    padding-top: 45px;
+}
+
+.main-back {
+    max-width: 550px;
+background-color: #fff;
+margin: auto;
+-webkit-box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+box-shadow: 2px 2px 13px -4px rgba(0, 0, 0, 0.21);
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+}
+.header-bar,
+.header-bar-additional{
+display: flex;
+justify-content: center;
+color: #fff;
+padding: 30px;
+border-radius: 10px 10px 0 0;
+background: linear-gradient(to right, #165975, #0c93d0);
+}
+.header-bar-additional{
+    align-items: center;
+    justify-content: space-between;
+}
+.details{
+        display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    background-color: #fff;
+    border-top: 1px solid #B0C4DE;
+    overflow: hidden;
+    padding: 20px;
+    flex-direction: column;
+    font-weight: bold;
+
+}
+.labels-button{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+}
+
+.input-group {
+    display: flex;
+    align-items: center; /* Align items vertically in the middle */
+    gap: 1rem; /* Adjust the gap as needed */
+}
+
+.input-group label {
+    flex-basis: 20%; /* Adjust the width of the label */
+}
+.form-buttons{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.form-button-submit{
+    width: 20%;
+    color: #fff;
+    background-color: cornflowerblue;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding:10px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+.form-button-cancel{
+    text-decoration: none;
+    color: black;
+    cursor:pointer;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: larger;
+}
+
+.form-button-submit:hover{
+    background-color:#0c93d0;
+}
+
+.food-input{
+    background-color: cornflowerblue;
+    color: #c20000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.food-btn{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+.lunch-section,
+.breakfast-section,
+.dinner-section{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15rem;
+}
+
+.detailed-body{
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    align-items: center;
+}
+.chart{
+    height: 400px;
+    max-height: 500px;
+    width: 400px;
+    max-width: 500px;
+}

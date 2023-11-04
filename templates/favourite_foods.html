@@ -1,0 +1,246 @@
+{% extends 'index.html' %} {% block content %}
+<div class="header">
+<div class="navbar">
+  <h1>Favourite Foods</h1>
+        </div>
+    </div>
+
+
+    <div class="detailed-body">
+
+           <div class="lunch-section">
+       <div class="lunch-canvas">
+           <label id="lunchLabel"></label>
+    <div class="chart">
+         <canvas id="lunchChart"></canvas>
+    </div>
+           </div>
+            <div class="lunch-list">
+               <div class="food-list-header">
+                   <h1>Your lunch box</h1>
+               </div>
+               <div class="food-list-body">
+                   {% for lunch in favourite_lunch %}
+                       <div class="food-btn">
+                       {{ lunch }}
+                       <form action="{% url 'lunchDelete' lunch.pk %}" method="post">
+                        {% csrf_token %}
+                        <input class="food-input" type="submit" value="&#215;">
+                    </form>
+                       </div>
+                   {%  endfor %}
+               </div>
+           </div>
+           </div>
+
+
+     <div class="breakfast-section">
+       <div class="breakfast-canvas">
+           <label id="breakfastLabel"></label>
+    <div class="chart">
+         <canvas id="breakfastChart"></canvas>
+    </div>
+           </div>
+            <div class="breakfast-list">
+               <div class="food-list-header">
+                   <h1>Your lunch box</h1>
+               </div>
+               <div class="food-list-body">
+                   {% for breakfast in favourite_breakfast %}
+                       <div class="food-btn">
+                       {{ breakfast }}
+                       <form action="{% url 'breakfastDelete' breakfast.pk %}" method="post">
+                        {% csrf_token %}
+                        <input class="food-input" type="submit" value="&#215;">
+                    </form>
+                       </div>
+                   {%  endfor %}
+               </div>
+           </div>
+           </div>
+
+
+    <div class="dinner-section">
+       <div class="dinner-canvas">
+           <label id="dinnerLabel"></label>
+    <div class="chart">
+         <canvas id="dinnerChart"></canvas>
+    </div>
+           </div>
+            <div class="dinner-list">
+               <div class="food-list-header">
+                   <h1>Your lunch box</h1>
+               </div>
+               <div class="food-list-body">
+                   {% for dinner in favourite_dinner %}
+                       <div class="food-btn">
+                       {{ dinner }}
+                       <form action="{% url 'dinnerDelete' dinner.pk %}" method="post">
+                        {% csrf_token %}
+                        <input class="food-input" type="submit" value="&#215;">
+                    </form>
+                       </div>
+                   {%  endfor %}
+               </div>
+           </div>
+           </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    const lunchBox = [
+        {% for lunch in favourite_lunch %}
+            "{{ lunch.name }}"{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ]; //In our charts labels are elements from chart array and in our pie diagram we want to dive this diagram as many slices as elements we have so we add in lunchBoxData number 1 until length of the lunchBox will be 0
+    const lunchBoxData=[{% for lunch in favourite_lunch %}
+        {{ lunch.calories }} {% if not forloop.last %},{% endif %}
+        {% endfor %}]
+    const totalLunchCalories = lunchBoxData.reduce((accumulator, currentValue) => accumulator + currentValue, 0); //sum of the list elements
+    // Get a reference to the label element by its ID
+    const lunchLabel = document.getElementById("lunchLabel");
+
+    // Update the label's text content to include the total calories
+    lunchLabel.textContent = `Lunch (total calories: ${totalLunchCalories})`;
+
+
+     const breakfastBox = [
+        {% for breakfast in favourite_breakfast %}
+            "{{ breakfast.name }}"{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+    const breakfastBoxData = [
+        {% for breakfast in favourite_breakfast %}
+            {{ breakfast.calories }}{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+    const totalBreakfastCalories = breakfastBoxData.reduce((accumulator,currentValue) => accumulator + currentValue, 0) //sum of the list elements
+
+        // Get a reference to the label element by its ID
+     const breakfastLabel = document.getElementById("breakfastLabel");
+
+    // Update the label's text content to include the total calories
+    breakfastLabel.textContent = `Breakfast (total calories: ${totalBreakfastCalories})`;
+
+
+    const dinnerBox = [
+        {% for dinner in favourite_dinner %}
+            "{{ dinner.name }}"{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+    const dinnerBoxData = [
+        {% for dinner in favourite_dinner %}
+            {{ dinner.calories }}{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+    const totalDinnerCalories = dinnerBoxData.reduce((accumulator,currentValue) => accumulator + currentValue, 0) //sum of the list elements
+
+    // Get a reference to the label element by its ID
+     const dinnerLabel = document.getElementById("dinnerLabel");
+
+    // Update the label's text content to include the total calories
+    dinnerLabel.textContent = `Dinner (total calories: ${totalDinnerCalories})`;
+
+
+    const lunchCtx = document.getElementById('lunchChart');
+    const breakfastCtx = document.getElementById('breakfastChart');
+    const dinnerCtx = document.getElementById('dinnerChart');
+
+    if (lunchBox.length > 0) {
+        const lunchConfig = {
+    type: 'pie',
+    data: {
+        labels: lunchBox,
+        datasets: [{
+            data: lunchBoxData,
+            backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60', '#884EA0', '#D35400'],
+        }]
+    },
+    options: {
+        plugins: {
+            legend: {
+                display: true,
+                position: 'right',
+            },
+
+        },
+    },
+};
+
+
+        // Create the lunch chart
+        new Chart(lunchCtx, lunchConfig);
+    }
+
+    if (breakfastBox.length > 0) {
+        const breakfastConfig = {
+            type: 'pie',
+            data: {
+                labels: breakfastBox,
+                datasets: [{
+                    data: breakfastBoxData,
+                    backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60', '#884EA0', '#D35400'],
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'right',
+                    },
+                },
+            },
+        };
+
+        // Create the breakfast chart
+        new Chart(breakfastCtx, breakfastConfig);
+    }
+
+    if (dinnerBox.length > 0) {
+        const dinnerConfig = {
+            type: 'pie',
+            data: {
+                labels: dinnerBox,
+                datasets: [{
+                    data: dinnerBoxData,
+                    backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60', '#884EA0', '#D35400'],
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'right',
+                    },
+                },
+            },
+        };
+
+        // Create the dinner chart
+        new Chart(dinnerCtx, dinnerConfig);
+    }
+
+
+</script>
+
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% extends 'index.html' %}
+{% block content %}
+    <div class="body">
+<div class="main-back">
+    <div class="header-bar-additional">
+        <h1>Hello {{ request.user|title }}</h1>
+        <a href="{% url 'password_change' %}" >Change Password</a>
+    </div>
+    <div class="details">
+        <!-- Display user's height, weight, and age -->
+        <label>Height: {{ user_profile.height }} cm</label> <br>
+        <label>Weight: {{ user_profile.weight }} kg </label> <br>
+        <label>Age: {{ user_profile.age }} </label> <br>
+
+        <!-- Button to toggle the edit form -->
+        <button id="edit-profile-button">Edit Profile</button>
+
+        <!-- Profile edit form (initially hidden) -->
+        <form id="profile-edit-form" method="post" style="display: none;">
+            {% csrf_token %}
+            <div class="labels-button">
+            <div class="input-group">
+            <label for="id_height">Height: </label>
+            <input type="text" id="id_height" name="height" value="{{ user_profile.height }}">
+        </div>
+        <div class="input-group">
+            <label for="id_weight">Weight: </label>
+            <input type="text" id="id_weight" name="weight" value="{{ user_profile.weight }}">
+        </div>
+        <div class="input-group">
+            <label for="id_age">Age: </label>
+            <input type="text" id="id_age" name="age" value="{{ user_profile.age }}">
+        </div>
+            <input id=save-profile-button type="submit" value="Save">
+                </div>
+        </form>
+
+
+    </div>
+</div>
+
+<script>
+
+        const editProfileButton = document.getElementById("edit-profile-button");
+        const profileEditForm = document.getElementById("profile-edit-form");
+
+        editProfileButton.addEventListener("click", () => {
+            profileEditForm.style.display = "block";
+            editProfileButton.style.display = "none";
+        });
+
+</script>
+    </div>
+{% endblock %}

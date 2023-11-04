@@ -1,0 +1,229 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div class="header">
+  <nav class="navbar">
+      <div class="navbar-img-title">
+      <img class = "navbar-img" src="https://cdn-icons-png.flaticon.com/512/4812/4812908.png" alt="">
+    <h1 class="navbar-title" id="calorie-tracker">Calorie Tracker</h1>
+
+          </div>
+    <div class="navbar-links">
+{#        {% if request.user.is_authenticated %}#}
+{#            <a href="{% url 'logout' %}" class="nav-link-right">Logout</a>#}
+{#            {% else %}#}
+{#                <a href="{% url 'register' %}" class="nav-link-right">Sign Up</a>#}
+{#      <a href="{% url 'login' %}" class="nav-link-left">Sign In</a>#}
+{##}
+{#        {% endif %}#}
+    </div>
+  <div class="user-account">
+    <img src="https://www.shareicon.net/data/512x512/2016/08/05/806962_user_512x512.png" alt="User Avatar" id="user-avatar">
+    <div class="user-account-options" id="user-account-options">
+        <!-- Options go here -->
+        <a href="{% url 'showDetails' %}" target="_blank" >Account Details</a>
+         <a href="{% url 'favourite_foods' %}" target="_blank" >Food Plan</a>
+        <a href="{% url 'logout' %}" >Logout</a>
+    </div>
+</div>
+  </nav>
+</div>
+
+    <form class="meal-form" method="POST">
+      {% csrf_token %}
+      <div class="search-bar">
+        <input class="input" type="text" placeholder="Search Foods..." name="name" id="search-input">
+        <button type="submit" name="submit-name" class="search-btn">&#x1F50E;</button>
+      </div>
+
+    </form>
+
+    <div class="btn">
+    <!-- Add button for revealing meal options -->
+    <button type="button" class="reveal-meals">ADD TO FAVORITES</button>
+    <!-- Add buttons for adding to meals (initially hidden) -->
+
+    <div class="add-to-meal-buttons">
+      <button type="button" class="add-to-meal" data-meal="breakfast" data-food="{{ food_data.name }}">Add to Breakfast</button>
+      <button type="button" class="add-to-meal" data-meal="lunch" data-food="{{ food_data.name }}">Add to Lunch</button>
+      <button type="button" class="add-to-meal" data-meal="dinner" data-food="{{ food_data.name }}">Add to Dinner</button>
+    </div>
+    </div>
+    <div class="message"><!-- From JS message will be appended to this div--></div>
+
+    <div class="food-and-chart">
+    <div class="food-details">
+      <!-- Display searched food data -->
+      {% for key, value in specified_food_data.items %}
+        <div class="food-detail">
+          <span class="detail-key">{{ key }}:</span>
+          <span class="detail-value">{{ value }}</span>
+        </div>
+
+      {% endfor %}
+    </div>
+
+<div class="chart">
+  <canvas id="myChart"></canvas>
+</div>
+    </div>
+
+
+
+
+
+
+  <style>
+    /* Initially hide the meal buttons */
+    .add-to-meal-buttons {
+      display: none;
+    }
+  </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+  <script>
+    const revealMealsButton = document.querySelector(".reveal-meals");
+    const mealButtons = document.querySelector(".add-to-meal-buttons");
+    const eachMealButton = document.querySelectorAll(".add-to-meal")
+
+    // Add click event listener to reveal meals button
+    revealMealsButton.addEventListener("click", () => {
+      mealButtons.style.display = "block"; // Show the meal buttons
+      revealMealsButton.style.display = "none"; // Hide the "+" button
+    });
+
+
+
+    // Get the add-to-meal buttons
+    const addToMealButtons = document.querySelectorAll(".add-to-meal");
+
+    // Add click event listener to each meal button
+    addToMealButtons.forEach((button) => {
+      button.addEventListener("click", (event) => {
+        // Prevent the default button click behavior
+        event.preventDefault();
+
+        // Get the meal and food name from data attributes
+        const meal = button.getAttribute("data-meal");
+        const foodName = button.getAttribute("data-food");
+
+        // Create a new input element for the meal and food name
+        const mealInput = document.createElement("input");
+        mealInput.type = "hidden";
+        mealInput.name = "meal";
+        mealInput.value = meal;
+
+        const foodNameInput = document.createElement("input");
+        foodNameInput.type = "hidden";
+        foodNameInput.name = "foodName";
+        foodNameInput.value = foodName;
+
+        // Append the input elements to the form
+        const form = document.querySelector(".meal-form");
+        form.appendChild(mealInput);
+        form.appendChild(foodNameInput);
+
+        // Send an AJAX request to add the food to the selected meal
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "{% url 'home' %}", true); // Replace with your URL
+        xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            if (response.message) {
+              // Display the success message
+              showMessage(response.message, "success");
+            }
+          } else {
+            // Display an error message
+            showMessage("An error occurred while adding the food to the meal.", "error");
+          }
+        };
+        xhr.send(`meal=${meal}&foodName=${encodeURIComponent(foodName)}`);
+      });
+    });
+
+    // Function to display a message on the page
+    function showMessage(message, type) {
+      const messageContainer = document.createElement("div");
+      messageContainer.className = `message ${type}`;
+      messageContainer.textContent = message;
+
+      // Append the message container to the page
+      const body = document.querySelector(".message");
+      body.appendChild(messageContainer);
+
+      // Remove the message after 3 seconds
+      setTimeout(function () {
+        body.removeChild(messageContainer);
+      }, 3000);
+    }
+
+    // Get references to the avatar and options menu
+const userAvatar = document.getElementById("user-avatar");
+const userAccountOptions = document.getElementById("user-account-options");
+
+// Add click event listener to the avatar
+userAvatar.addEventListener("click", () => {
+    // Toggle the display of the options menu
+    if (userAccountOptions.style.display === "flex") {
+        userAccountOptions.style.display = "none";
+    } else {
+        userAccountOptions.style.display = "flex";
+        userAccountOptions.style.flexDirection = 'column'
+        userAccountOptions.style.alignItems = 'center'
+    }
+});
+
+    const foodData = JSON.parse('{{ food_data_json|escapejs }}');
+    console.log(foodData)
+const foodKeys = Object.keys(foodData);
+    console.log(foodKeys)
+const foodValues = Object.values(foodData);
+const ctx = document.getElementById('myChart');
+const chartContainer = document.querySelector('.chart');
+
+if (foodKeys.length > 0) {
+  revealMealsButton.style.display = 'block';
+  chartContainer.style.display = 'block'; // Show the chart container
+
+  // Replace the existing Chart.js chart with the Legend.md chart
+  const config = {
+    type: 'pie', // Use 'pie' or the desired chart type
+    data: {
+      labels: foodKeys,
+      datasets: [{
+        data: foodValues,
+        backgroundColor: ['#CB4335', '#1F618D', '#F1C40F', '#27AE60', '#884EA0', '#D35400'],
+      }]
+    },
+    options: {
+      // Configure the Legend.md chart options
+      plugins: {
+        legend: {
+          display: true, // Customize this based on your needs
+          position: 'right', // Position the legend
+        },
+      },
+    },
+  };
+
+  // Create the Legend.md chart
+  new Chart(ctx, config);
+} else {
+  chartContainer.style.display = 'none'; // Hide the chart container
+  revealMealsButton.style.display = 'none';
+}
+// Get the "Calorie Tracker" h1 element
+const calorieTrackerTitle = document.getElementById("calorie-tracker")
+    calorieTrackerTitle.addEventListener("click",() => {
+        location.reload();
+    });
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'index.html' %}
+<!--task_list.html takes all parent elements of index.html.-->
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Meal</title>
+</head>
+<body>
+    <h1>Add a New Meal</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="name">Meal Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+
+        <h2>Select Food Items:</h2>
+        <ul>
+            <!-- Use JavaScript or Django forms to generate food item selections -->
+            <li>
+                <input type="checkbox" id="food1" name="foods[]" value="Food Item 1">
+                <label for="food1">Food Item 1</label>
+            </li>
+            <li>
+                <input type="checkbox" id="food2" name="foods[]" value="Food Item 2">
+                <label for="food2">Food Item 2</label>
+            </li>
+            <!-- Repeat the above two lines for each food item -->
+        </ul>
+
+        <input type="submit" value="Add Meal">
+    </form>
+</body>
+</html>
+{% endblock %}

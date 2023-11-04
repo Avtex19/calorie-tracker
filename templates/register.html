@@ -1,0 +1,63 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="login-page">
+  <div class="login-header">
+    <h1>Register Page</h1>
+  </div>
+
+  <div class="card-body">
+    <form class="login" method="POST" id="registration-form">
+      {% csrf_token %}
+         <div id="section-authentication">
+      <label>{{ form.username.label}}</label>
+      {{ form.username }}
+
+             <label>{{ form.email.label }}</label>
+{{ form.email }}
+
+
+
+      <label >{{ form.password1.label}}</label>
+      {{ form.password1 }}
+
+      <label >{{ form.password2.label}}</label>
+      {{ form.password2 }}
+      <button type="button" id="next-button">Next</button>
+         </div>
+
+      <!-- Section 2: Additional Information (Initially Hidden) -->
+      <div id="section-additional" style="display: none;">
+        <label >{{ form.age.label }}</label>
+        {{ form.age }}
+        <label >{{ form.height.label}}</label>
+        {{ form.height }}
+        <label >{{ form.weight.label}}</label>
+        {{ form.weight }}
+        <button type="submit" id="reg-button">Register</button>
+      </div>
+    </form>
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class="message-allert">
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+  </div>
+</div>
+
+<script>
+  // JavaScript code to handle the multistep registration process
+  const nextButton = document.getElementById("next-button");
+  const sectionAuthentication = document.getElementById("section-authentication");
+  const sectionAdditional = document.getElementById("section-additional");
+
+  nextButton.addEventListener("click", function () {
+    sectionAuthentication.style.display = "none"; // Hide the authentication section
+    sectionAdditional.style.display = "block"; // Show the additional information section
+  });
+</script>
+{% endblock content %}
