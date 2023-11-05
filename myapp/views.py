@@ -200,14 +200,19 @@ class lunchDelete(LoginRequiredMixin, DeleteView):
     template_name = 'favourite_foods.html'
 
 
-class breakfastDelete(LoginRequiredMixin,DeleteView):
+class breakfastDelete(LoginRequiredMixin, DeleteView):
     model = Breakfast
     context_object_name = 'breakfast'
     success_url = reverse_lazy('favourite_foods')
     template_name = 'favourite_foods.html'
 
-class dinnerDelete(LoginRequiredMixin,DeleteView):
+
+class dinnerDelete(LoginRequiredMixin, DeleteView):
     model = Dinner
     context_object_name = 'dinner'
     success_url = reverse_lazy('favourite_foods')
     template_name = 'favourite_foods.html'
+
+
+def showBmi(request):
+    return render(request, 'bmi-tracker.html')

@@ -27,6 +27,7 @@ urlpatterns = [
     path('breakfastDelete/<str:pk>/',
          breakfastDelete.as_view(), name='breakfastDelete'),
     path('dinnerDelete/<str:pk>/',
-         dinnerDelete.as_view(), name='dinnerDelete')
+         dinnerDelete.as_view(), name='dinnerDelete'),
+    path('showBmi/',views.showBmi, name='showBmi'),
 ]
 
