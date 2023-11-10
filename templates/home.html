@@ -93,7 +93,12 @@
 
     // Add click event listener to reveal meals button
     revealMealsButton.addEventListener("click", () => {
-      mealButtons.style.display = "block"; // Show the meal buttons
+      mealButtons.style.display = 'flex'// Show the meal buttons
+
+        mealButtons.style.gap = '20px'
+        mealButtons.style.alignItems = 'center'
+        mealButtons.style.flexWrap = 'wrap'
+        mealButtons.style.justifyContent = 'center'
       revealMealsButton.style.display = "none"; // Hide the "+" button
     });
 
